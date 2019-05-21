@@ -1,6 +1,8 @@
 
 class Store {
 
+
+    //name = 'contacts', remote = 'URL::PORT', onChange = function
     constructor(name, remote, onChange) {
         this.db = new PouchDB(name);
 

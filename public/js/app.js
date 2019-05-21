@@ -5,10 +5,13 @@ var NO_CONTACTS_TEXT = 'No contacts';
 
 class ContactBook {
 
+    // new ContactBook(Store, "http://localhost:5984");
     constructor(storeClass, remote) {
-        this.store = new storeClass('contacts', remote, () => {
-            this.refresh();
-        });
+        this.store = new storeClass(
+            'contacts',
+            remote,
+            () => {this.refresh();} //Store.onchange
+        );
 
         this.init();
         this.refresh();
