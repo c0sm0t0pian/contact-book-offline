@@ -22,6 +22,8 @@ class ContactBook {
         this.initElements();
         this.initItemTemplate();
         this.attachHandlers();
+
+        this.populateGenderListOptions();
     }
 
     initElements() {
@@ -32,12 +34,15 @@ class ContactBook {
         this.firstNameField = document.getElementById('firstname');
         this.lastNameField = document.getElementById('lastname');
         this.phoneField = document.getElementById('phone');
+        this.selGenderField = document.getElementById("selGender");
 
         this.addContactButton = document.getElementById('addContact');
         this.editContactButton = document.getElementById('editContact');
         this.removeContactButton = document.getElementById('removeContact');
         this.saveContactButton = document.getElementById('saveContact');
         this.cancelEditButton = document.getElementById('cancelEdit');
+
+        
     }
 
     initItemTemplate() {
@@ -56,6 +61,22 @@ class ContactBook {
         this.removeContactButton.addEventListener('click', () => { this.removeContact() });
         this.saveContactButton.addEventListener('click', () => { this.saveContact() });
         this.cancelEditButton.addEventListener('click', () => { this.cancelEdit() });
+    }
+
+
+    populateGenderListOptions(){
+        var genders = ["apple","orange","pear"];
+
+        for( var el in genders )
+        {
+            var newOption = new Option(el,el);
+            var genderListLength = this.selGenderField.options.length;
+            console.log(`genderListLength : ${genderListLength}`);
+            this.selGenderField.options[genderListLength] = newOption;
+            return true;
+        }
+            
+
     }
 
     refresh() {

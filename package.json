@@ -6,7 +6,8 @@
   "scripts": {
     "serve": "npm-run-all -p serve-front serve-backend",
     "serve-front": "http-server -o",
-    "serve-backend": "pouchdb-server -d db"
+    "serve-backend": "pouchdb-server -d db",
+    "debug": "npm-run-all"
   },
   "repository": {
     "type": "git",
