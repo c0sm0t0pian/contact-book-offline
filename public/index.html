@@ -40,17 +40,14 @@
                         <input id="phone" type="tel" autocomplete="off" />
                     </div>
                     <div class="contact-field">
-                        <label for="gender">Gender</label>
-                        <input id="gender"/>
+                        <!-- <label for="gender">Gender</label>
+                        <input id="gender"/> -->
                         
                         <select name="selGender" id="selGender">
                             <option value=""></option>
                         </select>
                         
                     </div>
-
-
-
                 </form>
                 
                 <div class="contact-controls">
@@ -71,10 +68,14 @@
     <script src="js/ext/pouchdb.min.js"></script>
     <script src="js/register-service-worker.js"></script>
 
+    <!-- setzt window.Store = Store; -->
     <script type="text/babel" src="js/store.js"></script>
+
     <script type="text/babel" src="js/app.js"></script>
+    
     <script type="text/babel">
         new ContactBook(Store, "http://localhost:5984");
     </script>
+    
 </body>
 </html>

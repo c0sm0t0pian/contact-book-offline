@@ -5,6 +5,7 @@ var NO_CONTACTS_TEXT = 'No contacts';
 
 class ContactBook {
 
+    // Aufruf aus HTML:
     // new ContactBook(Store, "http://localhost:5984");
     constructor(storeClass, remote) {
         this.store = new storeClass(
@@ -26,7 +27,7 @@ class ContactBook {
         this.populateGenderListOptions();
     }
 
-    initElements() {
+    initElements() { // 1. Init
         this.contactList = document.getElementById('contactList');
 
         this.contactDetailsForm = document.getElementById('contactDetails');
@@ -45,13 +46,13 @@ class ContactBook {
         
     }
 
-    initItemTemplate() {
+    initItemTemplate() { // 2. Init
         var contactListItem = this.contactList.querySelector('li');
         this.contactList.removeChild(contactListItem);
         this._contactTemplate = contactListItem;
     }
 
-    attachHandlers() {
+    attachHandlers() { // 3. Init
         this.contactDetailsForm.addEventListener('submit', event => {
             event.preventDefault();
         });
@@ -64,22 +65,21 @@ class ContactBook {
     }
 
 
-    populateGenderListOptions(){
-        var genders = ["apple","orange","pear"];
+    populateGenderListOptions(){ // 4. Init
+        let genders = ["apple","orange","pear"];
 
-        for( var el in genders )
+        for ( const element of genders )
         {
-            var newOption = new Option(el,el);
+            var newOption = new Option(element,element);
             var genderListLength = this.selGenderField.options.length;
-            console.log(`genderListLength : ${genderListLength}`);
+            console.log(`genderListLength: ${genderListLength}`);
             this.selGenderField.options[genderListLength] = newOption;
-            return true;
         }
             
 
     }
 
-    refresh() {
+    refresh() { // 5. Init
         this.store.getAll().then(contacts => {
             this.sortContacts(contacts);
             this.renderContactList(contacts);
@@ -182,7 +182,8 @@ class ContactBook {
             _id: this.getContactId(),
             firstName: this.firstNameField.value,
             lastName: this.lastNameField.value,
-            phone: this.phoneField.value
+            phone: this.phoneField.value,
+            gender: this.selGenderField.value
         };
     }
 
@@ -195,9 +196,11 @@ class ContactBook {
         this.firstNameField.value = contactDetails.firstName || '';
         this.lastNameField.value = contactDetails.lastName || '';
         this.phoneField.value = contactDetails.phone || '';
+
+        this.selGenderField.value = contactDetails.selGenderField || '';
     }
 
-    toggleContactFormEditing(isEditing) {
+    toggleContactFormEditing(isEditing) { // 6. Init
         var isContactSelected = !this.getContactId();
 
         this.toggleFade(this.contactDetailsForm, !isEditing && isContactSelected);
