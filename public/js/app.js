@@ -25,6 +25,8 @@ class ContactBook {
         this.attachHandlers();
 
         this.populateGenderListOptions();
+
+        this.generateDefaultEntries();
     }
 
     initElements() { // 1. Init

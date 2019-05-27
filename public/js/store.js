@@ -4,6 +4,7 @@ class Store {
 
     //name = 'contacts', remote = 'URL::PORT', onChange = function
     constructor(name, remote, onChange) {
+        
         this.db = new PouchDB(name);
 
         PouchDB.sync(name, `${remote}/${name}`, {
@@ -12,6 +13,10 @@ class Store {
         }).on('change', info => {
             onChange(info);
         });
+
+        //PouchDB.replicate(this.db, 'http://localhost:5984/mydb', {live: true});
+
+
     }
 
     getAll() {

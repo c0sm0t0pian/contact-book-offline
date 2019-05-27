@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Contact Book</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
     <div class="contact-book">
@@ -15,7 +16,8 @@
         <main class="contact-book-main">
             
             <section class="contact-list-section">
-                <ul id="contactList" class="contact-list">
+                <!-- <ul id="contactList" class="contact-list w3-ul w3-hoverable"> -->
+                <ul id="contactList" class="contact-list w3-hoverable">
                     <li class="contact-list-item">
                         <div class="contact-name"></div>
                         <div class="contact-phone"></div>
@@ -76,6 +78,6 @@
     <script type="text/babel">
         new ContactBook(Store, "http://localhost:5984");
     </script>
-    
+
 </body>
 </html>
