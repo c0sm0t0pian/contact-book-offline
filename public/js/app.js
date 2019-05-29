@@ -26,7 +26,7 @@ class ContactBook {
 
         this.populateGenderListOptions();
 
-        this.generateDefaultEntries();
+        // this.generateDefaultEntries();
     }
 
     initElements() { // 1. Init
@@ -68,6 +68,30 @@ class ContactBook {
 
 
     populateGenderListOptions(){ // 4. Init
+        
+        let gendersJSON = ([
+            {
+              _id: 'mittens',
+              table: 'genders',
+              occupation: 'kitten',
+              cuteness: 9.0
+            },
+            {
+              _id: 'katie',
+              table: 'genders',
+              occupation: 'kitten',
+              cuteness: 7.0
+            },
+            {
+              _id: 'felix',
+              table: 'gendergles',
+              occupation: 'kitten',
+              cuteness: 8.0
+            }
+        ]);
+
+        this.store.saveMultiple(gendersJSON);
+        
         let genders = ["apple","orange","pear"];
 
         for ( const element of genders )
@@ -82,10 +106,12 @@ class ContactBook {
     }
 
     refresh() { // 5. Init
-        this.store.getAll().then(contacts => {
+        
+        this.store.getContacts().then(contacts => {
             this.sortContacts(contacts);
             this.renderContactList(contacts);
         });
+
     }
 
     sortContacts(contacts) {

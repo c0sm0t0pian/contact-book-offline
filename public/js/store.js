@@ -1,6 +1,6 @@
+/* eslint-disable no-console */
 
 class Store {
-
 
     //name = 'contacts', remote = 'URL::PORT', onChange = function
     constructor(name, remote, onChange) {
@@ -28,6 +28,20 @@ class Store {
             });
     }
 
+    getContacts() {
+       
+        return this.db.find({
+            selector: {
+              table: {$eq: null}
+            }
+          }).then(function (result) {
+            
+          }).catch(function (err) {
+            console.log(err);
+          });
+
+    }
+
     get(id) {
         return this.db.get(id);
     }
@@ -36,6 +50,12 @@ class Store {
         return item._id
             ? this.update(item)
             : this.add(item);
+    }
+
+    saveMultiple(items) {
+        
+        this.db.bulkDocs(items);
+
     }
 
     add(item) {
@@ -57,5 +77,3 @@ class Store {
             });
     }
 }
-
-window.Store = Store;
