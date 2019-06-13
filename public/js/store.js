@@ -46,7 +46,7 @@ class Store {
 
     getContacts() {
 
-        console.log("Getting contacts only...");
+        console.log("Retrieving Contacts...");
         let returnObject;
 
         returnObject = this.db.find({
@@ -54,13 +54,13 @@ class Store {
                 table : { "$exists" : false }
             }
         }).then(contactsrecords => {
-            console.log('contactsrecords:');
-            console.log(contactsrecords);
+            // console.log('contactsrecords:');
+            // console.log(contactsrecords);
 
             //erstellt Array
             return contactsrecords.docs.map(row => {
-                console.log('row:');
-                console.log(row);
+                // console.log('row:');
+                // console.log(row);
                 return row;                
             });
         }).catch(function (err) {
@@ -73,11 +73,39 @@ class Store {
     
     }
 
+    getGenders() {
+        console.log("Retrieving Genders...");
+        let returnObject;
+
+        returnObject = this.db.find({
+            selector: {
+                table : { "$eq" : 'genders' }
+            }
+        }).then(genderentries => {
+            // console.log('genderentries:');
+            // console.log(genderentries);
+
+            //erstellt Array
+            return genderentries.docs.map(row => {
+                // console.log('row:');
+                // console.log(row);
+                return row;                
+            });
+        }).catch(function (err) {
+            console.log(err);
+        });
+        
+        console.log('Returning (returnObject genders): ');
+        console.log(returnObject);
+        return returnObject;
+    }
+
     get(id) {
         return this.db.get(id);
     }
 
     save(item) {
+        // condition ? value-if-true : value-if-false
         return item._id
             ? this.update(item)
             : this.add(item);
@@ -85,7 +113,15 @@ class Store {
 
     saveMultiple(items) {
         
-        this.db.bulkDocs(items);
+        items.map( item => {
+            // console.log('item:');
+            // console.log(item);
+            item._id
+                ? this.update(item)
+                : this.add(item);
+            // this.add(item);
+        })
+        // this.db.bulkDocs(items);
 
     }
 

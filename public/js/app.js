@@ -26,7 +26,7 @@ class ContactBook {
         this.initItemTemplate();
         this.attachHandlers();
 
-        // this.populateGenderListOptions();
+        this.populateGenderListOptions();
 
         // this.generateDefaultEntries();
     }
@@ -73,36 +73,49 @@ class ContactBook {
         
         let gendersJSON = ([
             {
-              _id: 'mittens',
+              _id: 'g0',
               table: 'genders',
-              occupation: 'kitten',
-              cuteness: 9.0
+              genderID: 0,
+              genderName: 'female'
             },
             {
-              _id: 'katie',
+              _id: 'g1',
               table: 'genders',
-              occupation: 'kitten',
-              cuteness: 7.0
+              genderID: 1,
+              genderName: 'non-binary'
             },
             {
-              _id: 'felix',
-              table: 'gendergles',
-              occupation: 'kitten',
-              cuteness: 8.0
+             _id: 'g2',
+             table: 'genders',
+             genderID: 2,
+             genderName: 'male'
             }
         ]);
 
         this.store.saveMultiple(gendersJSON);
         
-        let genders = ["apple","orange","pear"];
+        let genders = this.store.getGenders();
+        // let genders = ["apple","orange","pear"];
+        
+        console.log("Genders retrieved");
+        console.log(`genders: ${genders}`);
 
-        for ( const element of genders )
-        {
-            var newOption = new Option(element,element);
+        genders.map( item => {
+            console.log(`item.genderName: ${item.genderName}`);
+            var newOption = new Option(item.genderName, item.genderID);
             var genderListLength = this.selGenderField.options.length;
             console.log(`genderListLength: ${genderListLength}`);
             this.selGenderField.options[genderListLength] = newOption;
-        }
+        });
+
+        console.log("Finished population GenderList");
+        // for ( const element of genders )
+        // {
+        //     var newOption = new Option(element,element);
+        //     var genderListLength = this.selGenderField.options.length;
+        //     console.log(`genderListLength: ${genderListLength}`);
+        //     this.selGenderField.options[genderListLength] = newOption;
+        // }
             
 
     }
@@ -227,7 +240,7 @@ class ContactBook {
         this.firstNameField.value = contactDetails.firstName || '';
         this.lastNameField.value = contactDetails.lastName || '';
         this.phoneField.value = contactDetails.phone || '';
-
+        
         this.selGenderField.value = contactDetails.selGenderField || '';
     }
 
