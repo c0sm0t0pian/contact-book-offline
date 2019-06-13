@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-console */
 
 class Store {
@@ -20,26 +21,56 @@ class Store {
     }
 
     getAll() {
-        return this.db.allDocs({ include_docs: true })
-            .then(db => {
-                return db.rows.map(row => {
+        let returnObject;
+        
+        returnObject = this.db.allDocs({ include_docs: true })
+            .then(records => {
+                console.log('records:');
+                console.log(records);
+
+                // erstellt Array 
+                return records.rows.map(row => {
+                    console.log('row:');
+                    console.log(row);
+                    console.log('row.doc:');
+                    console.log(row.doc);
                     return row.doc;
                 });
+
             });
+
+        console.log('Returning (returnObject): ');
+        console.log(returnObject);
+        return returnObject;
     }
 
     getContacts() {
-       
-        return this.db.find({
-            selector: {
-              table: {$eq: null}
-            }
-          }).then(function (result) {
-            
-          }).catch(function (err) {
-            console.log(err);
-          });
 
+        console.log("Getting contacts only...");
+        let returnObject;
+
+        returnObject = this.db.find({
+            selector: {
+                table : { "$exists" : false }
+            }
+        }).then(contactsrecords => {
+            console.log('contactsrecords:');
+            console.log(contactsrecords);
+
+            //erstellt Array
+            return contactsrecords.docs.map(row => {
+                console.log('row:');
+                console.log(row);
+                return row;                
+            });
+        }).catch(function (err) {
+            console.log(err);
+        });
+
+        console.log('Returning (returnObject contacts): ');
+        console.log(returnObject);
+        return returnObject;
+    
     }
 
     get(id) {

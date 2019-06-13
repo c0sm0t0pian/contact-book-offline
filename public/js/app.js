@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 
 var CONTACT_ID_ATTR_NAME = 'data-contractid';
 var CONTACT_REMOVE_CONFIRM = 'Are you sure?';
@@ -14,6 +15,7 @@ class ContactBook {
             () => {this.refresh();} //Store.onchange
         );
 
+        console.log('Starting init()');
         this.init();
         this.refresh();
         this.toggleContactFormEditing(false);
@@ -24,7 +26,7 @@ class ContactBook {
         this.initItemTemplate();
         this.attachHandlers();
 
-        this.populateGenderListOptions();
+        // this.populateGenderListOptions();
 
         // this.generateDefaultEntries();
     }
@@ -106,8 +108,9 @@ class ContactBook {
     }
 
     refresh() { // 5. Init
-        
+
         this.store.getContacts().then(contacts => {
+        // this.store.getAll().then(contacts => {
             this.sortContacts(contacts);
             this.renderContactList(contacts);
         });
