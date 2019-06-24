@@ -98,15 +98,30 @@ class ContactBook {
         // let genders = ["apple","orange","pear"];
         
         console.log("Genders retrieved");
-        console.log(`genders: ${genders}`);
+        // console.log(`genders: ${genders}`);
+        // console.log(`typeof genders: ${typeof genders}`);
+        // console.log(genders);
 
-        genders.map( item => {
-            console.log(`item.genderName: ${item.genderName}`);
-            var newOption = new Option(item.genderName, item.genderID);
-            var genderListLength = this.selGenderField.options.length;
-            console.log(`genderListLength: ${genderListLength}`);
-            this.selGenderField.options[genderListLength] = newOption;
+        let selGenderField = this.selGenderField;
+        genders.then(function (genderArray) {
+            
+            genderArray.map( item => {
+                // console.log(`item.genderName: ${item.genderName}`);
+                var newOption = new Option(item.genderName, item.genderID);
+                var genderListLength = selGenderField.options.length;
+                // console.log(`genderListLength: ${genderListLength}`);
+                selGenderField.options[genderListLength] = newOption;
+            });
+
         });
+
+        // genders.map( item => {
+        //     console.log(`item.genderName: ${item.genderName}`);
+        //     var newOption = new Option(item.genderName, item.genderID);
+        //     var genderListLength = this.selGenderField.options.length;
+        //     console.log(`genderListLength: ${genderListLength}`);
+        //     this.selGenderField.options[genderListLength] = newOption;
+        // });
 
         console.log("Finished population GenderList");
         // for ( const element of genders )
@@ -240,7 +255,6 @@ class ContactBook {
         this.firstNameField.value = contactDetails.firstName || '';
         this.lastNameField.value = contactDetails.lastName || '';
         this.phoneField.value = contactDetails.phone || '';
-        
         this.selGenderField.value = contactDetails.selGenderField || '';
     }
 
@@ -259,6 +273,8 @@ class ContactBook {
         this.toggleDisabled(this.firstNameField, !isEditing);
         this.toggleDisabled(this.lastNameField, !isEditing);
         this.toggleDisabled(this.phoneField, !isEditing);
+
+        this.toggleDisabled(this.selGenderField, !isEditing);
 
         this.firstNameField.focus();
         this.firstNameField.setSelectionRange(0, this.firstNameField.value.length);
